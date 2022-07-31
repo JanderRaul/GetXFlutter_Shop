@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class Product {
   final int? id;
   final String? productName;
@@ -11,4 +13,6 @@ class Product {
       this.productImage,
       this.productDescription,
       this.price});
+
+  final quant = 1.obs;
 }

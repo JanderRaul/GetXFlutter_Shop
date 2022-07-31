@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_getx/controllers/cart_controller.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class CardProductCart extends StatelessWidget {
   const CardProductCart({
@@ -49,40 +50,55 @@ class CardProductCart extends StatelessWidget {
               const SizedBox(height: 16),
               Row(
                 children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.remove,
-                        size: 12,
+                  GestureDetector(
+                    onTap: () {
+                      if (controller.cartItens[index].quant.value > 1) {
+                        controller.cartItens[index].quant.value--;
+                      }
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: Icon(
+                          Icons.remove,
+                          size: 12,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 16),
-                  Text('1'),
+                  Obx(
+                    () => Text('${controller.cartItens[index].quant.value}'),
+                  ),
                   const SizedBox(width: 16),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.add,
-                        size: 12,
+                  GestureDetector(
+                    onTap: () {
+                      controller.cartItens[index].quant.value++;
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: Icon(
+                          Icons.add,
+                          size: 12,
+                        ),
                       ),
                     ),
                   ),
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
+                      controller.cartItens[index].quant.value = 1;
                       cartController.removeCart(controller.cartItens[index]);
                     },
                     child: Container(
